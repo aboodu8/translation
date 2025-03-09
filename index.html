@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موقع الترجمة</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* خلفية سوداء */
+            color: #fff; /* نص أبيض */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #333; /* خلفية داكنة للعناصر */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1); /* ظل فاتح */
+            width: 300px;
+            text-align: center;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #555; /* حدود داكنة */
+            background-color: #222; /* خلفية داكنة */
+            color: #fff; /* نص أبيض */
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #555; /* حدود داكنة */
+            background-color: #222; /* خلفية داكنة */
+            color: #fff; /* نص أبيض */
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #444; /* خلفية داكنة */
+            border-radius: 4px;
+            border: 1px solid #555; /* حدود داكنة */
+            color: #fff; /* نص أبيض */
+        }
+        .channel-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .channel-link a {
+            color: #28a745; /* لون رابط أخضر */
+            text-decoration: none;
+        }
+        .channel-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>موقع الترجمة</h1>
+        <textarea id="textToTranslate" placeholder="أدخل النص للترجمة"></textarea>
+        <select id="targetLanguage">
+            <option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Spanish</option>
+            <option value="fr">🇫🇷 French</option>
+            <option value="de">🇩🇪 German</option>
+            <option value="it">🇮🇹 Italian</option>
+            <option value="ru">🇷🇺 Russian</option>
+            <option value="zh">🇨🇳 Chinese</option>
+            <option value="ja">🇯🇵 Japanese</option>
+            <option value="ko">🇰🇷 Korean</option>
+            <option value="tr">🇹🇷 Turkish</option>
+            <option value="hi">🇮🇳 Hindi</option>
+            <option value="pt">🇧🇷 Portuguese</option>
+            <option value="ar">🇮🇶 Arabic</option>
+            <option value="nl">🇳🇱 Dutch</option>
+            <option value="el">🇬🇷 Greek</option>
+            <option value="sv">🇸🇪 Swedish</option>
+            <option value="pl">🇵🇱 Polish</option>
+            <option value="da">🇩🇰 Danish</option>
+            <option value="no">🇳🇴 Norwegian</option>
+            <option value="th">🇹🇭 Thai</option>
+            <option value="vi">🇻🇳 Vietnamese</option>
+            <option value="he">🇮🇱 Hebrew</option>
+        </select>
+        <button onclick="translateText()">ترجمة</button>
+        <div class="result" id="translationResult"></div>
+        <div class="Telegram joine">
+            تابعنا على <a href="https://t.me/oe_zx" target="_blank">Telegram</a>
+        </div>
+    </div>
+
+    <script>
+        function translateText() {
+            const text = document.getElementById('textToTranslate').value;
+            const targetLang = document.getElementById('targetLanguage').value;
+
+            fetch('translate.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text, targetLang: targetLang })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('translationResult').innerText = data.translatedText;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
